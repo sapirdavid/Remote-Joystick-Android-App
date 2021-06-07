@@ -11,8 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joystickandroidapp.remotejoystick.R;
+import com.joystickandroidapp.remotejoystick.view_model.ViewModel;
 
 public class MainActivity extends AppCompatActivity {
+    public ViewModel vm;
     private TextView rudderData;
     private SeekBar rudderBar;
     private TextView throttleData;

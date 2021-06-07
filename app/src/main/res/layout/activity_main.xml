@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="viewModel"
+            type="com.joystickandroidapp.remotejoystick.view_model.ViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/IPText"
+            android:layout_width="410dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="650dp"
+            android:background="@color/purple_500"
+            android:ems="10"
+            android:hint="   IP"
+            android:inputType="textPersonName"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:text="@{viewModel.ip}" />
+
+        <EditText
+            android:id="@+id/PORTText"
+            android:layout_width="410dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="-650dp"
+            android:layout_marginBottom="650dp"
+            android:textColorLink="@color/white"
+            android:ems="10"
+            android:hint="   PORT"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:background="@color/purple_500"
+            android:text="@{viewModel.port}"/>
+        />
+
+        <Button
+            android:id="@+id/connectButton"
+            android:layout_width="143dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="-620dp"
+            android:layout_marginBottom="650dp"
+            android:layout_marginLeft="130dp"
+            android:text="Connect"
+            />
+
+        <SeekBar
+            android:id="@+id/rudderBar"
+            android:layout_width="330dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="-280dp"
+            android:layout_marginBottom="650dp"
+            android:layout_marginLeft="50dp"
+
+            />
+
+        <SeekBar
+            android:id="@+id/throttleBar"
+            android:layout_width="330dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="-100dp"
+            android:layout_marginTop="-1050dp"
+            android:layout_marginBottom="650dp"
+            android:rotation="270"
+            />
+
+        <TextView
+            android:id="@+id/rudderData"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="-620dp"
+            android:layout_marginBottom="900dp"/>
+
+        <TextView
+            android:id="@+id/throttleData"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-1300dp"
+            android:layout_marginBottom="300dp"
+            />
+
+    </LinearLayout>
+
+</layout>

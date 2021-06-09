@@ -12,7 +12,14 @@ public class ViewModel {
     }
     /* sending the new aileron value to server */
     public void setAileron(double aileronVal) {
-        FGPlayerModel.sendAileronValue(String.valueOf(aileronVal));
+//        Runnable taskThrottle = () -> {
+//            FGPlayerModel.sendAileronValue(Double.toString(aileronVal));
+//        };
+//        executorService.execute(taskThrottle);
+//
+////        if(FGPlayerModel.connectFlag) {
+////            executorService.execute(taskThrottle);
+////        }
     }
     /* sending the new elevator value to server */
     public void setElevator(double elevatorVal) {

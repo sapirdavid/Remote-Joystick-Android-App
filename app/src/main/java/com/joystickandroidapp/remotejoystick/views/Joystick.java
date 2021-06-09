@@ -20,6 +20,7 @@ public class Joystick extends View {
     public double movingX = 0;
     public double movingY = 0;
     public double radius = 170;
+    public JoystickListener joystickListener;
 
     public Joystick(Context context) {
         super(context);
@@ -57,19 +58,26 @@ public class Joystick extends View {
                 float y = event.getY();
                 this.movingX = x - (getWidth() / 2);
                 this.movingY = y - (getHeight() / 2);
+                if (joystickListener!= null) {
+                    joystickListener.onMoved((float)this.movingX, (float)this.movingY);
+                }
                 invalidate();
                 return true;
             case MotionEvent.ACTION_UP:
                 this.movingX = 0;
                 this.movingY = 0;
+                if (joystickListener!= null) {
+                    joystickListener.onMoved(0, 0);
+                }
                 invalidate();
                 return true;
         }
-//        this.movingX = 0;
-//        this.movingY = 0;
-//        invalidate();
         return super.onTouchEvent(event);
     }
 
+}
+
+interface JoystickListener {
+    void onMoved(float x, float y);
 }
 

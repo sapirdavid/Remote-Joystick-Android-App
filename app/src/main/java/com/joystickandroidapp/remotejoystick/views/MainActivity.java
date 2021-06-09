@@ -35,11 +35,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FGPlayerModel = new FGPlayer();
         vm = new ViewModel(FGPlayerModel);
-        //joystick = (Joystick) findViewById(R.id.joystick);
-        joystick = new Joystick(getApplicationContext());
+        joystick = (Joystick) findViewById(R.id.joystick);
+        //joystick = new Joystick(getApplicationContext());
+        joystick.joystickListener = (x, y) -> {
+            setAileron(x);
+            setElevator(y);
+        };
         /* single thread for running task */
         executorService = Executors.newSingleThreadExecutor();
-
         /* initialize listeners */
         connectButtonListener();
         rudderBarListener();
@@ -105,6 +108,24 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
+
+    public void setAileron(double aileronVal) {
+        Runnable taskAileron = () -> {
+            FGPlayerModel.sendAileronValue(Double.toString(aileronVal));
+        };
+        if(connectFlag) {
+            executorService.execute(taskAileron);
+        }
+    }
+
+    public void setElevator(double elevatorVal) {
+        Runnable taskElevator = () -> {
+            FGPlayerModel.sendElevatorValue(Double.toString(elevatorVal));
+        };
+        if(connectFlag) {
+            executorService.execute(taskElevator);
+        }
     }
 
     void connectButtonListener() {

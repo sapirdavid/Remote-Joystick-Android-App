@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         FGPlayerModel = new FGPlayer();
         vm = new ViewModel(FGPlayerModel);
+        //joystick = (Joystick) findViewById(R.id.joystick);
+        joystick = new Joystick(getApplicationContext());
         /* single thread for running task */
         executorService = Executors.newSingleThreadExecutor();
 

@@ -90,6 +90,7 @@
             />
 
         <com.joystickandroidapp.remotejoystick.views.Joystick
+            android:id="@+id/joystick"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginLeft="80dp"

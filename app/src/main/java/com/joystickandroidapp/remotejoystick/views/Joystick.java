@@ -8,15 +8,18 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-
 import androidx.annotation.Nullable;
 
+
 public class Joystick extends View {
-    public double centerX;
-    public double centerY;
-    public double radius;
+    public double initCenterX;
+    public double initCenterY;
+    public double movingX = 0;
+    public double movingY = 0;
+    public double radius = 170;
 
     public Joystick(Context context) {
         super(context);
@@ -33,15 +36,40 @@ public class Joystick extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int x = getWidth();
-        int y = getHeight();
-        int radius = 170;
+        initCenterX = getWidth() / 2;
+        initCenterY = getHeight() / 2;
+        double centerX = initCenterX + this.movingX;
+        double centerY = initCenterY + this.movingY;
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.WHITE);
         canvas.drawPaint(paint);
         paint.setColor(Color.RED);
-        canvas.drawCircle(x/2, y/2, radius, paint);
+        canvas.drawCircle((float)centerX, (float)centerY, (float)radius, paint);
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                float x = event.getX();
+                float y = event.getY();
+                this.movingX = x - (getWidth() / 2);
+                this.movingY = y - (getHeight() / 2);
+                invalidate();
+                return true;
+            case MotionEvent.ACTION_UP:
+                this.movingX = 0;
+                this.movingY = 0;
+                invalidate();
+                return true;
+        }
+//        this.movingX = 0;
+//        this.movingY = 0;
+//        invalidate();
+        return super.onTouchEvent(event);
+    }
+
 }
 

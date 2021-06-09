@@ -7,9 +7,7 @@ public class ViewModel {
     public int port;
     public FGPlayer FGPlayerModel;
 
-    public ViewModel(String ip, int port, FGPlayer FGPlayerModel) {
-        this.ip = ip;
-        this.port = port;
+    public ViewModel(FGPlayer FGPlayerModel) {
         this.FGPlayerModel = FGPlayerModel;
     }
 }

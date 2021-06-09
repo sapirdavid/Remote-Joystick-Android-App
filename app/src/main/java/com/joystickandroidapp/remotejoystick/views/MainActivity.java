@@ -11,7 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joystickandroidapp.remotejoystick.R;
+import com.joystickandroidapp.remotejoystick.model.FGPlayer;
 import com.joystickandroidapp.remotejoystick.view_model.ViewModel;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     public ViewModel vm;
@@ -19,36 +24,29 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar rudderBar;
     private TextView throttleData;
     private SeekBar throttleBar;
+    public ExecutorService executorService;
+    public boolean connectFlag = false;
+    public FGPlayer FGPlayerModel = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FGPlayerModel = new FGPlayer();
+        vm = new ViewModel(FGPlayerModel);
+        /* single thread for running task */
+        executorService = Executors.newSingleThreadExecutor();
 
-        rudderData = (TextView) findViewById(R.id.rudderData);
-        rudderBar = (SeekBar) findViewById(R.id.rudderBar);
+        /* initialize listeners */
+        connectButtonListener();
+        rudderBarListener();
+        throttleBarListener();
+    }
 
+    void throttleBarListener() {
         throttleData = (TextView) findViewById(R.id.throttleData);
         throttleBar = (SeekBar) findViewById(R.id.throttleBar);
-
-        rudderBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                /* the progValue is the progress after convert to the -1 - 1 range*/
-                //NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
-                double progValue = (((double) progress * 2) / 100) + -1;
-                /* round two digits after point */
-                progValue = (int)(Math.round(progValue * 100)) / 100.0;
-                rudderData.setText("" + progValue );
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
+        /* listener for throttle bar changes */
         throttleBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -58,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 /* round two digits after point */
                 progValue = (int)(Math.round(progValue * 100)) / 100.0;
                 throttleData.setText("" + progValue );
+                double finalProgValue = progValue;
+                Runnable taskThrottle = () -> {
+                    FGPlayerModel.sendThrottleValue(Double.toString(finalProgValue));
+                };
+                if(connectFlag) {
+                    executorService.execute(taskThrottle);
+                }
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -66,8 +71,40 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
 
 
+    void rudderBarListener() {
+        rudderData = (TextView) findViewById(R.id.rudderData);
+        rudderBar = (SeekBar) findViewById(R.id.rudderBar);
+        /* listener for rudder bar changes */
+        rudderBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                /* the progValue is the progress after convert to the -1 - 1 range*/
+                //NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+                double progValue = (((double) progress * 2) / 100) + -1;
+                /* round two digits after point */
+                progValue = (int)(Math.round(progValue * 100)) / 100.0;
+                rudderData.setText("" + progValue );
+                double finalProgValue = progValue;
+                Runnable taskRudder = () -> {
+                    FGPlayerModel.sendRudderValue(Double.toString(finalProgValue));
+                };
+                if(connectFlag) {
+                    executorService.execute(taskRudder);
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+    }
+
+    void connectButtonListener() {
         Button connect = findViewById(R.id.connectButton);
         EditText ip = findViewById(R.id.IPText);
         EditText port = findViewById(R.id.PORTText);
@@ -84,8 +121,19 @@ public class MainActivity extends AppCompatActivity {
                 /* show message with ip and port */
                 Toast t = Toast.makeText(getApplicationContext(), "the ip: " + ipStr + "the port: " + portStr, Toast.LENGTH_SHORT);
                 t.show();
+
+                Runnable taskConnect = () -> {
+                    if(FGPlayerModel != null) {
+                        try {
+                            FGPlayerModel.openSocket(ipStr, Integer.parseInt(portStr));
+                            connectFlag = true;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                executorService.execute(taskConnect);
             }
         });
-
     }
 }

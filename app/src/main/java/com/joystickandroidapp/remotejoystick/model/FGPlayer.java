@@ -9,45 +9,54 @@ public class FGPlayer {
     PrintWriter fgOut = null;
 
     /* the function open socket with the flight gear simulator */
-    void openSocket(String ipAddress, int portNumber) throws IOException {
+    public void openSocket(String ipAddress, int portNumber) throws IOException {
         try {
             this.fgSocket = new Socket(ipAddress, portNumber);
             this.fgOut = new PrintWriter(fgSocket.getOutputStream(), true);
         } catch (Exception e) {
             e.printStackTrace();
-            openSocket(ipAddress, portNumber);
+            //openSocket(ipAddress, portNumber);
         }
     }
 
     /* the function send to the simulator the new value of aileron */
-    void sendAileronValue(String aileronVal) {
+    public void sendAileronValue(String aileronVal) {
         if (fgOut != null) {
-            fgOut.print("set/controls/flight/aileron " + aileronVal + "\r");
+            fgOut.print("set /controls/flight/aileron " + aileronVal + " \r\n");
             fgOut.flush();
         }
     }
 
     /* the function send to the simulator the new value of elevator */
-    void sendElevatorValue(String elevatorVal) {
+    public void sendElevatorValue(String elevatorVal) {
         if (fgOut != null) {
-            fgOut.print("set/controls/flight/elevator " + elevatorVal + "\r");
+            fgOut.print("set /controls/flight/elevator " + elevatorVal + " \r\n");
             fgOut.flush();
         }
     }
 
     /* the function send to the simulator the new value of rudder */
-    void sendRudderValue(String rudderVal) {
+    public void sendRudderValue(String rudderVal) {
         if (fgOut != null) {
-            fgOut.print("set/controls/flight/rudder " + rudderVal + "\r");
-            fgOut.flush();
+            try {
+                fgOut.print("set /controls/flight/rudder " + rudderVal + " \r\n");
+                fgOut.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
     /* the function send to the simulator the new value of throttle */
-    void sendThrottleValue(String throttleVal) {
+    public void sendThrottleValue(String throttleVal) {
         if (fgOut != null) {
-            fgOut.print("set/controls/flight/throttle " + throttleVal + "\r");
-            fgOut.flush();
+            try {
+                fgOut.print("set /controls/engines/current-engine/throttle " + throttleVal + " \r\n");
+                fgOut.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

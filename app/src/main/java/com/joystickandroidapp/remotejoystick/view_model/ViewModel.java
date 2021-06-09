@@ -10,4 +10,12 @@ public class ViewModel {
     public ViewModel(FGPlayer FGPlayerModel) {
         this.FGPlayerModel = FGPlayerModel;
     }
+    /* sending the new aileron value to server */
+    public void setAileron(double aileronVal) {
+        FGPlayerModel.sendAileronValue(String.valueOf(aileronVal));
+    }
+    /* sending the new elevator value to server */
+    public void setElevator(double elevatorVal) {
+        FGPlayerModel.sendElevatorValue(String.valueOf(elevatorVal));
+    }
 }

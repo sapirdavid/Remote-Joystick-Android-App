@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public ExecutorService executorService;
     public boolean connectFlag = false;
     public FGPlayer FGPlayerModel = null;
+    public Joystick joystick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

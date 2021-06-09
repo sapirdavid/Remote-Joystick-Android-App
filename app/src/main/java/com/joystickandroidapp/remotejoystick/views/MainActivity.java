@@ -34,15 +34,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FGPlayerModel = new FGPlayer();
-        vm = new ViewModel(FGPlayerModel);
+        /* single thread for running task */
+        executorService = Executors.newSingleThreadExecutor();
+        vm = new ViewModel(FGPlayerModel, executorService);
         joystick = (Joystick) findViewById(R.id.joystick);
         //joystick = new Joystick(getApplicationContext());
         joystick.joystickListener = (x, y) -> {
-            setAileron(x);
-            setElevator(y);
+            vm.setAileron(x);
+            vm.setElevator(y);
         };
-        /* single thread for running task */
-        executorService = Executors.newSingleThreadExecutor();
         /* initialize listeners */
         connectButtonListener();
         rudderBarListener();
@@ -63,12 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 progValue = (int)(Math.round(progValue * 100)) / 100.0;
                 throttleData.setText("" + progValue );
                 double finalProgValue = progValue;
-                Runnable taskThrottle = () -> {
-                    FGPlayerModel.sendThrottleValue(Double.toString(finalProgValue));
-                };
-                if(connectFlag) {
-                    executorService.execute(taskThrottle);
-                }
+                vm.setThrottle(finalProgValue);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -94,12 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 progValue = (int)(Math.round(progValue * 100)) / 100.0;
                 rudderData.setText("" + progValue );
                 double finalProgValue = progValue;
-                Runnable taskRudder = () -> {
-                    FGPlayerModel.sendRudderValue(Double.toString(finalProgValue));
-                };
-                if(connectFlag) {
-                    executorService.execute(taskRudder);
-                }
+                vm.setRudder(finalProgValue);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -108,24 +98,6 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-    }
-
-    public void setAileron(double aileronVal) {
-        Runnable taskAileron = () -> {
-            FGPlayerModel.sendAileronValue(Double.toString(aileronVal));
-        };
-        if(connectFlag) {
-            executorService.execute(taskAileron);
-        }
-    }
-
-    public void setElevator(double elevatorVal) {
-        Runnable taskElevator = () -> {
-            FGPlayerModel.sendElevatorValue(Double.toString(elevatorVal));
-        };
-        if(connectFlag) {
-            executorService.execute(taskElevator);
-        }
     }
 
     void connectButtonListener() {

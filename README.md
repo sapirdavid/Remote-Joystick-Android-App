@@ -14,12 +14,12 @@ The connection to the flight simulator is established via conntection to the Fli
 
 
 
-**Installation Instructions - FlightGear**
+**Installation Instructions - FlightGear:**
 
 At the settings section insert:
 --telnet=socket,in,10,127.0.0.1,6400,tcp
 
-**Installation Instructions - Android Studio**
+**Installation Instructions - Android Studio:**
 
 For proper visual representation of the app please follow:
 1. Go to AVD manger 
@@ -28,7 +28,7 @@ For proper visual representation of the app please follow:
 4. select a system image - the recommended is R. 
 5. verify configuration and finish.
 
-**When application opens**
+**When application opens:**
 1. insert your local IPV4 address
 2. insert port 6400
 3. press connect

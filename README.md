@@ -21,3 +21,18 @@ For proper visual representation of the app please follow:
 3. Choose a device defention "Pixel 3 XL" 
 4. select a system image - the recommended is R. 
 5. verify configuration and finish.
+
+
+
+
+
+
+**UML Class Diagram**
+
+![uml](https://pasteboard.co/K6qBxDr.jpg)
+
+
+
+
+
+

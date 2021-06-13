@@ -1,19 +1,20 @@
 # Remote Joystick Android App
 
+_Introduction:_
 This project is an android application which demonstrates a remote joystick to control flights.
 
 The application uses draggable joystick and seek bar - we can control the aircraft's aileron and elevator using draggable joystick and control the aircraft's rudder and throttle using seek bars.
 
 The connection to the flight simulator is established via conntection to the FlightGear server.
 
-*Installation Instructions - FlightGear*
+_*Installation Instructions - FlightGear*_
 
 At the settings section insert:
 --telnet=socket,in,10,127.0.0.1,6400,tcp
 
-*Installation Instructions - Android Studio*
+_*Installation Instructions - Android Studio*_
 
-For proper vistul representation of the app please follow:
+For proper visual representation of the app please follow:
 1. Go to AVD manger 
 2. click on "Create virtual decive" 
 3. Choose a device defention "Pixel 3 XL" 

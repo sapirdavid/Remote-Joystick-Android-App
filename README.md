@@ -29,7 +29,7 @@ For proper visual representation of the app please follow:
 
 **UML Class Diagram**
 
-![uml](https://ibb.co/jZf2Mv8)
+![uml](https://lh3.googleusercontent.com/9s7pdFbWTk2QA_xjSAXfotQfzKOebGVqfqnlZsXhwGwTEoE8hgTphlmqzS7VC_OpLbMIM_M=s159)
 
 
 

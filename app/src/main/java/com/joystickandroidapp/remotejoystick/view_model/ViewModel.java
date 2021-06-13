@@ -10,21 +10,28 @@ public class ViewModel {
     public FGPlayer FGPlayerModel;
     public ExecutorService executorService;
 
+    /* constructor */
     public ViewModel(FGPlayer FGPlayerModel, ExecutorService executorService) {
         this.FGPlayerModel = FGPlayerModel;
         this.executorService = executorService;
     }
+
     /* sending the new aileron value to server */
     public void setAileron(double aileronVal) {
         Runnable taskAileron = () -> {
-            FGPlayerModel.sendAileronValue(Double.toString(aileronVal));
+            //NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+            double normalizedAileronVal = (((aileronVal + 800) * 2) / 1600) -1;
+            FGPlayerModel.sendAileronValue(Double.toString(normalizedAileronVal));
         };
         executorService.execute(taskAileron);
     }
+
     /* sending the new elevator value to server */
     public void setElevator(double elevatorVal) {
         Runnable taskElevator = () -> {
-            FGPlayerModel.sendElevatorValue(Double.toString(elevatorVal));
+            //NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+            double normalizedElevatorVal = (((elevatorVal + 800) * 2) / 1600) -1;
+            FGPlayerModel.sendElevatorValue(Double.toString(normalizedElevatorVal * -1));
         };
         executorService.execute(taskElevator);
     }
@@ -44,9 +51,4 @@ public class ViewModel {
         };
         executorService.execute(taskThrottle);
     }
-
-
-
-
-
 }

@@ -4,13 +4,17 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 
 
@@ -43,9 +47,10 @@ public class Joystick extends View {
         double centerY = initCenterY + this.movingY;
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.WHITE);
+        canvas.drawColor(Color.TRANSPARENT);
+        paint.setColor(Color.TRANSPARENT);
         canvas.drawPaint(paint);
-        paint.setColor(Color.RED);
+        paint.setColor(Color.WHITE);
         canvas.drawCircle((float)centerX, (float)centerY, (float)radius, paint);
     }
 

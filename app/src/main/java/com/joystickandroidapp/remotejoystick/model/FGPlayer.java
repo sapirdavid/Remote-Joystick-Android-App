@@ -20,11 +20,6 @@ public class FGPlayer {
         this.fgOut = new PrintWriter(fgSocket.getOutputStream(), true);
     }
 
-
-    public Socket getFgSocket() {
-        return this.fgSocket;
-    }
-
     /* the function send to the simulator the new value of aileron */
     public void sendAileronValue(String aileronVal) {
         if (fgOut != null) {

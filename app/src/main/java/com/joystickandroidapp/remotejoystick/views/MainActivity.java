@@ -3,6 +3,9 @@ package com.joystickandroidapp.remotejoystick.views;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +18,8 @@ import com.joystickandroidapp.remotejoystick.model.FGPlayer;
 import com.joystickandroidapp.remotejoystick.view_model.ViewModel;
 
 import java.io.IOException;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -114,16 +119,24 @@ public class MainActivity extends AppCompatActivity {
                 /* user's input of ip and port*/
                 String ipStr = ip.getText().toString();
                 String portStr = port.getText().toString();
-                /* show message with ip and port */
-                Toast t = Toast.makeText(getApplicationContext(), "the ip: " + ipStr + "the port: " + portStr, Toast.LENGTH_SHORT);
-                t.show();
-
                 Runnable taskConnect = () -> {
                     if(FGPlayerModel != null) {
                         try {
                             FGPlayerModel.openSocket(ipStr, Integer.parseInt(portStr));
                             connectFlag = true;
-                        } catch (IOException e) {
+                            /*  message of successful connection  */
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getBaseContext(),"connection success :\n" + "Ip: " + ipStr + " Port: " + portStr,Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } catch (Exception e) {
+                            /*  message of failure connection  */
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getBaseContext(),"connection failed. try again\n",Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             e.printStackTrace();
                         }
                     }

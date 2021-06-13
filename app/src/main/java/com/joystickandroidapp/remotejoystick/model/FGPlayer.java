@@ -1,7 +1,10 @@
 package com.joystickandroidapp.remotejoystick.model;
 
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 
@@ -10,14 +13,16 @@ public class FGPlayer {
     PrintWriter fgOut = null;
 
     /* the function open socket with the flight gear simulator */
-    public void openSocket(String ipAddress, int portNumber) throws IOException {
-        try {
-            this.fgSocket = new Socket(ipAddress, portNumber);
-            this.fgOut = new PrintWriter(fgSocket.getOutputStream(), true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            //openSocket(ipAddress, portNumber);
-        }
+    public void openSocket(String ipAddress, int portNumber) throws Exception {
+        this.fgSocket = new Socket();
+        fgSocket.connect(new InetSocketAddress(ipAddress, portNumber), 6000);
+        //this.fgSocket = new Socket(ipAddress, portNumber);
+        this.fgOut = new PrintWriter(fgSocket.getOutputStream(), true);
+    }
+
+
+    public Socket getFgSocket() {
+        return this.fgSocket;
     }
 
     /* the function send to the simulator the new value of aileron */

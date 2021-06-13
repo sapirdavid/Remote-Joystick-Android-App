@@ -6,12 +6,12 @@ The application uses draggable joystick and seek bar - we can control the aircra
 
 The connection to the flight simulator is established via conntection to the FlightGear server.
 
-Installation Instructions - FlightGear
+*Installation Instructions - FlightGear*
 
 At the settings section insert:
 --telnet=socket,in,10,127.0.0.1,6400,tcp
 
-Installation Instructions - Android Studio
+*Installation Instructions - Android Studio*
 
 For proper vistul representation of the app please follow:
 1. Go to AVD manger 

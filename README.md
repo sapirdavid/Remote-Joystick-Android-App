@@ -29,8 +29,8 @@ For proper visual representation of the app please follow:
 5. verify configuration and finish.
 
 **When application opens:**
-1. insert your local IPV4 address
-2. insert port 6400
+1. insert your public IPV4 address
+2. insert port 6400 (or the matching port number according to the instruction given to FlightGear)
 3. press connect
 
 

@@ -44,7 +44,7 @@ https://cdn1.bbcode0.com/uploads/2021/6/15/3923d9f8303535fe617f0a87d0043ecc-full
 
 ## Video explanation and example:
 
-[You can find here the link to a video explanation of the application](https://youtu.be/0-AW_JWXDUY)
+You can find [here](https://youtu.be/0-AW_JWXDUY) the link to a video explanation of the application
 
 
 

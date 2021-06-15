@@ -37,7 +37,9 @@ For proper visual representation of the app please follow:
 
 **UML Class Diagram:**
 
-![uml](https://ibb.co/Lhf0vmx)
+![uml](
+https://cdn1.bbcode0.com/uploads/2021/6/15/3923d9f8303535fe617f0a87d0043ecc-full.jpg
+)
 
 
 

@@ -13,12 +13,12 @@ The connection to the flight simulator is established via conntection to the Fli
 ![](demo.gif)
 
 
-**Installation Instructions - FlightGear:**
+**Instructions - FlightGear:**
 
 At the settings section insert:
 --telnet=socket,in,10,127.0.0.1,6400,tcp
 
-**Installation Instructions - Android Studio:**
+**Instructions - Android Studio:**
 
 For proper visual representation of the app please follow:
 1. Go to AVD manger 

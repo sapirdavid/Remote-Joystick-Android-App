@@ -20,6 +20,7 @@ At the settings section insert:
 --telnet=socket,in,10,127.0.0.1,6400,tcp
 
 After the connection between the application with the server:
+Tool bar -> Cessna C172P -> Autostart 
 
 
 ## Instructions -  Android Studio:

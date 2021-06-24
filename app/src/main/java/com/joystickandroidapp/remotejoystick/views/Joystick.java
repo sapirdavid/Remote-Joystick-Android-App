@@ -38,6 +38,7 @@ public class Joystick extends View {
         super(context, attrs);
     }
 
+    /* the function draw the joystick(circle) */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -54,6 +55,7 @@ public class Joystick extends View {
         canvas.drawCircle((float)centerX, (float)centerY, (float)radius, paint);
     }
 
+    /* the function react every touch and move the joystick accordingly  */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
@@ -66,6 +68,7 @@ public class Joystick extends View {
                 if (joystickListener!= null) {
                     joystickListener.onMoved((float)this.movingX, (float)this.movingY);
                 }
+                // draw the joystick in the new position
                 invalidate();
                 return true;
             case MotionEvent.ACTION_UP:
@@ -74,6 +77,7 @@ public class Joystick extends View {
                 if (joystickListener!= null) {
                     joystickListener.onMoved(0, 0);
                 }
+                // draw the joystick in the new position
                 invalidate();
                 return true;
         }
@@ -82,6 +86,7 @@ public class Joystick extends View {
 
 }
 
+/* functional interface */
 interface JoystickListener {
     void onMoved(float x, float y);
 }

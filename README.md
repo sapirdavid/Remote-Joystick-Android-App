@@ -42,7 +42,7 @@ For proper visual representation of the app please follow:
 ## UML Class Diagram:
 
 ![uml](
-https://pasteboard.co/22e828c1-eab8-4843-9d74-ede37774ab1b
+https://i.imgur.com/VcwYQql.jpg
 )
 
 

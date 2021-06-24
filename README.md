@@ -19,6 +19,9 @@ The connection to the flight simulator is established via conntection to the Fli
 At the settings section insert:
 --telnet=socket,in,10,127.0.0.1,6400,tcp
 
+After the connection between the application with the server:
+
+
 ## Instructions -  Android Studio:
 
 For proper visual representation of the app please follow:

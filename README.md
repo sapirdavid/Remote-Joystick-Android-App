@@ -22,6 +22,8 @@ At the settings section insert:
 After the connection between the application with the server:
 Tool bar -> Cessna C172P -> Autostart 
 
+*to change the view options press 'v'.
+
 
 ## Instructions -  Android Studio:
 
